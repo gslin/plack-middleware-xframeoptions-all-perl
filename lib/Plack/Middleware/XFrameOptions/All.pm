@@ -5,6 +5,24 @@ package Plack::Middleware::XFrameOptions::All;
 use strict;
 use warnings;
 
+=head1 NAME
+
+Plack::Middleware::XFrameOptions::All - Plack middleware to set X-Frame-Options.
+
+=head1 DESCRIPTION
+
+This module will setup X-Frame-Options header to protect clickjacking issue.
+This header has been supported by IE8+, Fx 3.6.9+, Google Chrome.
+
+=head1 SYNOPSIS
+
+    use Plack::Builder;
+    builder {
+	enable 'XFrameOptions::All', policy => 'sameorigin'; // or 'deny'
+    }
+
+=cut
+
 use parent 'Plack::Middleware';
 
 use Plack::Util;
