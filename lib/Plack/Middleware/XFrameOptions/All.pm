@@ -38,7 +38,8 @@ sub call {
 	my $h = Plack::Util::headers($res->[1]);
 
 	# Only process text/html.
-	return unless $h->get('Content-Type') =~ qr{text/html};
+	my $ct = $h->get('Content-Type') or return;
+	return unless $ct =~ qr{text/html};
 
 	$h->set('X-Frame-Options', $self->policy);
     });
