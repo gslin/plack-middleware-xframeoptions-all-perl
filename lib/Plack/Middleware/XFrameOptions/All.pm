@@ -18,7 +18,7 @@ This header has been supported by IE8+, Fx 3.6.9+, Google Chrome.
 
     use Plack::Builder;
     builder {
-	enable 'XFrameOptions::All', policy => 'sameorigin'; // or 'deny'
+        enable 'XFrameOptions::All', policy => 'sameorigin'; // or 'deny'
     }
 
 =cut
@@ -33,15 +33,15 @@ sub call {
 
     my $res = $self->app->($env);
     Plack::Util::response_cb($res, sub {
-	my $res = shift;
+        my $res = shift;
 
-	my $h = Plack::Util::headers($res->[1]);
+        my $h = Plack::Util::headers($res->[1]);
 
-	# Only process text/html.
-	my $ct = $h->get('Content-Type') or return;
-	return unless $ct =~ qr{text/html};
+        # Only process text/html.
+        my $ct = $h->get('Content-Type') or return;
+        return unless $ct =~ qr{text/html};
 
-	$h->set('X-Frame-Options', $self->policy);
+        $h->set('X-Frame-Options', $self->policy);
     });
 }
 
